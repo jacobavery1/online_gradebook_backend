@@ -5,28 +5,25 @@ class Controllers {
         this.pool = pool
     }
 
-    getAllStudents() {
-        return new Promise((resolve, reject) => {
-            return this.pool.query('SELECT * FROM student')
-                .then(result => {
-                    return resolve(result.rows)
-                }).catch(err => {
-                    return reject(err)
-                })
-        })
+    async getAllStudents() {
+        try {
+            const selection = await this.pool.query('SELECT * FROM student')
+            return selection.rows
+        } catch (error) {
+            return error
+        }     
     }
 
-    addStudent({last_name, first_name, grade_level, student_email}) {
-        return new Promise((resolve, reject) => {
-            return this.pool.query(
+    async addStudent({last_name, first_name, grade_level, student_email}) {
+        try {
+            const selection = await this.pool.query(
                 'INSERT INTO student (last_name, first_name, grade_level, student_email) VALUES ($1, $2, $3, $4) RETURNING student_id', 
                 [last_name, first_name, grade_level, student_email]
-            ).then(result => {
-                return resolve(result)
-            }).catch(err => {
-                return reject(err)
-            })
-        })
+            )
+            return selection
+        } catch (error) {
+            return error
+        }
     }
 }
 
