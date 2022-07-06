@@ -16,4 +16,17 @@ router.post('/addAssignment', async (req, res) => {
     res.json(addedAssignment)
 })
 
+router.put('/updateAssignment/:assignmentId', async (req, res) => {
+    const { assignmentId } = req.params 
+    const updateAssignment = req.body 
+    const updatedAssignment = await controllers.editAssignment(updateAssignment, assignmentId)
+    res.json(updatedAssignment)
+})
+
+router.delete('/:assignmentId', async (req, res) => {
+    const { assignmentId } = req.params
+    const deletedAssignment = await controllers.deleteAssignment(assignmentId)
+    res.json(deletedAssignment)
+})
+
 module.exports = router

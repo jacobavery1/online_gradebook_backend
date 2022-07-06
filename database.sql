@@ -14,4 +14,4 @@ CREATE TABLE student_grades (
     semester INT, 
     assignment_date DATE, 
     assignment_grade DECIMAL
-)
+);
